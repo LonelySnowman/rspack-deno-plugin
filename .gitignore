@@ -1,0 +1,8 @@
+# ide
+.idea
+
+# dep
+node_modules
+
+# package
+dist

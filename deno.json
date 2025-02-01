@@ -1,0 +1,16 @@
+{
+  "tasks": {
+    "build": "rsbuild build"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "imports": {
+    "@rsbuild/core": "npm:@rsbuild/core@^1.2.0",
+    "@rspack/cli": "npm:@rspack/cli@^1.2.1",
+    "@rspack/core": "npm:@rspack/core@^1.2.0",
+    "@std/assert": "jsr:@std/assert@1",
+    "lodash-es": "npm:lodash-es@^4.17.21"
+  },
+  "nodeModulesDir": "auto"
+}
