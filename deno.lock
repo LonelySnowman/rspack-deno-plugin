@@ -3,6 +3,7 @@
   "specifiers": {
     "jsr:@std/assert@1": "1.0.11",
     "jsr:@std/internal@^1.0.5": "1.0.5",
+    "npm:@commitlint/cli@19.7.1": "19.7.1",
     "npm:@commitlint/cli@^19.7.1": "19.7.1",
     "npm:@commitlint/config-conventional@^19.7.1": "19.7.1",
     "npm:@rsbuild/core@^1.2.0": "1.2.4_@swc+helpers@0.5.15",
@@ -10,9 +11,11 @@
     "npm:@rspack/cli@^1.2.1": "1.2.2_@rspack+core@1.2.2__@swc+helpers@0.5.15",
     "npm:@rspack/core@^1.2.0": "1.2.2_@swc+helpers@0.5.15",
     "npm:husky@^9.1.7": "9.1.7",
+    "npm:lint-staged@15.4.3": "15.4.3",
     "npm:lint-staged@^15.4.3": "15.4.3",
     "npm:lodash-es@^4.17.21": "4.17.21",
     "npm:oxlint@0.15.7": "0.15.7",
+    "npm:prettier@3.4.2": "3.4.2",
     "npm:prettier@^3.4.2": "3.4.2"
   },
   "jsr": {
