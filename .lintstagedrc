@@ -1,5 +1,4 @@
 {
-  "lint-staged": {
-    "**/*.{js,mjs,cjs,ts}": "deno run lint:write"
-  }
+  "**/*.{js,mjs,cjs,ts}": ["deno run lint-staged:oxlint", "deno run lint-staged:prettier"],
+  "**/*.{json}": ["deno run lint-staged:prettier"],
 }

@@ -2,9 +2,12 @@
   "tasks": {
     "build": "rsbuild build",
     "lint:check": "oxlint -c oxlintrc.json --tsconfig tsconfig.json && prettier . --check",
-    "lint:write": "oxlint -c oxlintrc.json --tsconfig tsconfig.json --fix && prettier . --write",
+    "oxlint:write": "oxlint -c oxlintrc.json --tsconfig tsconfig.json --fix",
+    "prettier:write": "prettier . --write",
     "commitlint": "commitlint --edit $1",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "lint-staged:oxlint": "oxlint --fix",
+    "lint-staged:prettier": "prettier --write"
   },
   "exports": {
     ".": "./src/index.ts"
@@ -18,7 +21,9 @@
     "@rspack/core": "npm:@rspack/core@^1.2.0",
     "@std/assert": "jsr:@std/assert@1",
     "husky": "npm:husky@^9.1.7",
+    "lint-staged": "npm:lint-staged@^15.4.3",
     "lodash-es": "npm:lodash-es@^4.17.21",
+    "oxlint": "npm:oxlint@0.15.7",
     "prettier": "npm:prettier@^3.4.2"
   },
   "nodeModulesDir": "auto"
