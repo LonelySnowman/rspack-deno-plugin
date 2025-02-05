@@ -1,0 +1,5 @@
+{
+  "lint-staged": {
+    "**/*.{js,mjs,cjs,ts}": "deno run lint:write"
+  }
+}

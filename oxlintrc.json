@@ -1,0 +1,10 @@
+{
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "no-unused-vars": "error",
+    "no-implicit-any": "warn",
+    "no-explicit-any": "warn"
+  }
+}

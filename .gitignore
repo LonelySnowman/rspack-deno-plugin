@@ -1,8 +1,11 @@
-# ide
-.idea
-
 # dep
 node_modules
 
-# package
+# output
 dist
+
+# ide
+.idea
+
+# system
+.DS_store
