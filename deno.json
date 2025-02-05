@@ -1,4 +1,8 @@
 {
+  "name": "@snowman/rspack-deno-plugin",
+  "version": "0.0.1",
+  "license": "MIT",
+  "exports": "./src/index.ts",
   "tasks": {
     "build": "rsbuild build",
     "lint:check": "oxlint -c oxlintrc.json --tsconfig tsconfig.json && prettier . --check",
@@ -8,9 +12,6 @@
     "lint-staged": "lint-staged",
     "lint-staged:oxlint": "oxlint --fix",
     "lint-staged:prettier": "prettier --write"
-  },
-  "exports": {
-    ".": "./src/index.ts"
   },
   "imports": {
     "@commitlint/cli": "npm:@commitlint/cli@^19.7.1",
