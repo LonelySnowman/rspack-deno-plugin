@@ -4,7 +4,6 @@
   "license": "MIT",
   "exports": "./src/index.ts",
   "tasks": {
-    "build": "rsbuild build",
     "lint:check": "oxlint -c oxlintrc.json --tsconfig tsconfig.json && prettier . --check",
     "oxlint:write": "oxlint -c oxlintrc.json --tsconfig tsconfig.json --fix",
     "prettier:write": "prettier . --write",
@@ -14,13 +13,8 @@
     "lint-staged:prettier": "prettier --write"
   },
   "imports": {
-    "@commitlint/cli": "npm:@commitlint/cli@^19.7.1",
     "@commitlint/config-conventional": "npm:@commitlint/config-conventional@^19.7.1",
-    "@rsbuild/core": "npm:@rsbuild/core@^1.2.0",
-    "@rsbuild/plugin-babel": "npm:@rsbuild/plugin-babel@^1.0.3",
-    "@rspack/cli": "npm:@rspack/cli@^1.2.1",
-    "@rspack/core": "npm:@rspack/core@^1.2.0",
-    "@std/assert": "jsr:@std/assert@1",
+    "@rspack/core": "npm:@rspack/core@^1.2.2",
     "husky": "npm:husky@^9.1.7",
     "lint-staged": "npm:lint-staged@^15.4.3",
     "lodash-es": "npm:lodash-es@^4.17.21",

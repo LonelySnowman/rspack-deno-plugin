@@ -24,28 +24,30 @@ class RspackDenoPlugin implements RspackPluginInstance {
     };
   }
 
-  apply(compiler: Compiler) {
-    compiler.hooks.beforeRun.tapPromise(PLUGIN_NAME, async () => {
-      if (this._option.mode === 'native') {
-        const loader = this._Loader as NativeLoader;
-        await loader.beforeRun?.();
-        // Use builtin:swc-loader to process ts files in deno cache
-        compiler.options.module.rules.push({
-          test: loader.denoCache._rootInfo?.denoDir,
-          exclude: [/node_modules/],
-          loader: 'builtin:swc-loader',
-          options: {
-            jsc: {
-              parser: {
-                syntax: 'typescript',
-              },
+  async initPlugin(compiler: Compiler) {
+    if (this._option.mode === 'native') {
+      const loader = this._Loader as NativeLoader;
+      await loader.beforeRun?.();
+      // Use builtin:swc-loader to process ts files in deno cache
+      compiler.options.module.rules.push({
+        test: loader.denoCache._rootInfo?.denoDir,
+        exclude: [/node_modules/],
+        loader: 'builtin:swc-loader',
+        options: {
+          jsc: {
+            parser: {
+              syntax: 'typescript',
             },
           },
-          type: 'javascript/auto',
-        });
-      }
-    });
+        },
+        type: 'javascript/auto',
+      });
+    }
+  }
 
+  apply(compiler: Compiler) {
+    compiler.hooks.beforeRun.tapPromise(PLUGIN_NAME, this.initPlugin.bind(this));
+    compiler.hooks.watchRun.tapPromise(PLUGIN_NAME, this.initPlugin.bind(this));
     compiler.hooks.compilation.tap(PLUGIN_NAME, (_compilation: Compilation, { normalModuleFactory }) => {
       normalModuleFactory.hooks.beforeResolve.tap(PLUGIN_NAME, this._Loader.beforeResolve.bind(this._Loader));
     });
