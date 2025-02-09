@@ -16,9 +16,9 @@ deno install jsr:@snowman/rspack-deno-plugin
 ```
 
 ```ts
-// create rsbuild script file
-import { createRsbuild } from "@rsbuild/core";
-import RspackDenoPlugin from "@snowman/rspack-deno-plugin";
+// create rsbuild script file like rsbuild-script.ts
+import { createRsbuild } from '@rsbuild/core';
+import RspackDenoPlugin from '@snowman/rspack-deno-plugin';
 
 const rsbuild = await createRsbuild({
   rsbuildConfig: {
@@ -43,7 +43,7 @@ await rsbuild.startDevServer();
 
 ```bash
 # run rsbuild script
-deno ./rsbuild-script.ts --allow-all
+deno --allow-all ./rsbuild-script.ts
 ```
 
 ## How it works
