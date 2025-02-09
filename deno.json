@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "license": "MIT",
   "exports": "./src/index.ts",
+  "publish": {
+    "exclude": ["!src"]
+  },
   "tasks": {
     "lint:check": "oxlint -c oxlintrc.json --tsconfig tsconfig.json && prettier . --check",
     "oxlint:write": "oxlint -c oxlintrc.json --tsconfig tsconfig.json --fix",
