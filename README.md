@@ -8,7 +8,45 @@ Deno module resolution for rspack and rsbuild.
 
 ## How to use
 
+### NPM Package
+
+```bash
+# install package
+deno install npm:rspack-deno-plugin
+```
+
+- Use in `rsbuild.config.ts`
+
+```ts
+import { defineConfig } from '@rsbuild/core';
+import RspackDenoPlugin from 'rspack-deno-plugin';
+
+export default defineConfig({
+  // ...
+  tools: {
+    rspack: {
+      plugins: [new RspackDenoPlugin()],
+    },
+  },
+});
+```
+
+- Use in `rspack.config.ts`
+
+```ts
+import { defineConfig } from '@rspack/cli';
+import RspackDenoPlugin from 'rspack-deno-plugin';
+
+export default defineConfig({
+  // ...
+  plugins: [new RspackDenoPlugin()],
+});
+```
+
+### JSR Package
+
 - You need to set `"nodeModulesDir": "auto"` in deno.json before start.
+- Can only be run with `rsbuild` api.
 
 ```bash
 # install package
