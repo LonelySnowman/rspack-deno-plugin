@@ -8,6 +8,8 @@ Deno module resolution for rspack and rsbuild.
 
 ## How to use
 
+- You need to set `"nodeModulesDir": "auto"` in deno.json before start.
+
 ### NPM Package
 
 ```bash
@@ -45,7 +47,6 @@ export default defineConfig({
 
 ### JSR Package
 
-- You need to set `"nodeModulesDir": "auto"` in deno.json before start.
 - Can only be run with `rsbuild` api.
 
 ```bash
