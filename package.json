@@ -1,0 +1,30 @@
+{
+  "name": "rspack-deno-plugin",
+  "version": "1.0.1",
+  "description": "Deno module resolution for rspack and rsbuild.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsup-node"
+  },
+  "keywords": [
+    "rspack",
+    "rsbuild",
+    "deno"
+  ],
+  "author": "LonelySnowman",
+  "license": "MIT",
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0",
+  "dependencies": {
+    "@rspack/core": "^1.2.3",
+    "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^19.7.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "oxlint": "^0.15.11",
+    "prettier": "^3.5.1",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3"
+  }
+}

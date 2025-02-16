@@ -9,3 +9,6 @@ dist
 
 # system
 .DS_store
+
+# package
+lib

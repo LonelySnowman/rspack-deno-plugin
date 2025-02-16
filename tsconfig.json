@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "esnext",
+    "module": "NodeNext",
     "lib": ["esnext"],
     "allowJs": true,
     "checkJs": false,
@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "noImplicitAny": false,
     "allowImportingTsExtensions": true,
-    "moduleResolution": "nodenext"
+    "moduleResolution": "NodeNext"
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
