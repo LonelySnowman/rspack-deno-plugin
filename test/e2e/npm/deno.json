@@ -1,0 +1,18 @@
+{
+  "tasks": {
+    "build": "rspack build"
+  },
+  "nodeModulesDir": "auto",
+  "imports": {
+    "@rspack/cli": "npm:@rspack/cli@^1.2.8",
+    "@rspack/core": "npm:@rspack/core@^1.2.8",
+    "assert": "npm:assert@^2.1.0",
+    "date-fns": "npm:date-fns@^4.1.0",
+    "esbuild": "npm:esbuild@^0.25.1",
+    "esbuild-register": "npm:esbuild-register@^3.6.0",
+    "lodash-es": "npm:lodash-es@^4.17.21"
+  },
+  "compilerOptions": {
+    "lib": ["dom", "esnext"]
+  }
+}

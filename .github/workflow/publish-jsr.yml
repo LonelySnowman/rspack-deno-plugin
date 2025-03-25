@@ -1,0 +1,24 @@
+name: Publish JSR Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'release')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Publish Package
+        run: deno publish
+        env:
+          DENO_AUTH_TOKEN: ${{ secrets.DENO_AUTH_TOKEN }}

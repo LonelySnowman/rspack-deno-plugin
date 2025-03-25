@@ -1,0 +1,27 @@
+name: E2E Test
+
+on: [push, pull_request]
+
+jobs:
+  jest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: HTTP Specifier Test
+        run: deno install && deno run build
+        working-directory: ./test/e2e/http
+
+      - name: JSR Specifier Test
+        run: deno install && deno run build
+        working-directory: ./test/e2e/jsr
+
+      - name: NPM Specifier Test
+        run: deno install && deno run build
+        working-directory: ./test/e2e/npm

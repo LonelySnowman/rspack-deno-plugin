@@ -1,7 +1,7 @@
-import { ResolveData } from '@rspack/core';
-import { Loader, Specifiers, NpmPackage, ModuleEntryEsm } from '../types.ts';
-import { DenoCache } from '../deno-cache.ts';
-import { parseNpmSpecifier } from '../utils.ts';
+import { ResolveData } from "@rspack/core";
+import { Loader, Specifiers, NpmPackage, ModuleEntryEsm } from "../types.ts";
+import { DenoCache } from "../deno-cache.ts";
+import { parseNpmSpecifier } from "../utils.ts";
 
 export class NativeLoader implements Loader {
   denoCache: DenoCache;
@@ -18,7 +18,6 @@ export class NativeLoader implements Loader {
 
   async beforeResolve(resolveData: ResolveData) {
     await this.denoCache.resolveRequestToDenoSpecifier(resolveData);
-
     const { request } = resolveData;
 
     // NPM use node_modules packages
@@ -35,7 +34,10 @@ export class NativeLoader implements Loader {
       resolveData.request = jsr.local!;
     }
 
-    if (request.startsWith(Specifiers.HTTPS) || request.startsWith(Specifiers.HTTP)) {
+    if (
+      request.startsWith(Specifiers.HTTPS) ||
+      request.startsWith(Specifiers.HTTP)
+    ) {
       const jsr = (await this.denoCache.get(request)) as ModuleEntryEsm;
       resolveData.request = jsr.local!;
       return;

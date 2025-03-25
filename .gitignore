@@ -1,8 +1,8 @@
 # dep
-node_modules
+**/node_modules
 
 # output
-dist
+**/dist
 
 # ide
 .idea
@@ -12,3 +12,6 @@ dist
 
 # package
 lib
+
+# test
+test/**/deno.lock

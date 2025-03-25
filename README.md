@@ -35,6 +35,11 @@ export default defineConfig({
 
 - Use in `rspack.config.ts`
 
+```bash
+# Install ts parser before running
+deno install npm:esbuild npm:esbuild-register
+```
+
 ```ts
 import { defineConfig } from '@rspack/cli';
 import RspackDenoPlugin from 'rspack-deno-plugin';

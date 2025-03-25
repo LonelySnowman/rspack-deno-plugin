@@ -1,0 +1,11 @@
+{
+  "tasks": {
+    "build": "rspack build"
+  },
+  "nodeModulesDir": "auto",
+  "imports": {
+    "@rspack/cli": "npm:@rspack/cli@^1.2.8",
+    "esbuild": "npm:esbuild@^0.25.1",
+    "esbuild-register": "npm:esbuild-register@^3.6.0"
+  }
+}

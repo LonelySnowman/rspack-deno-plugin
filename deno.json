@@ -22,6 +22,8 @@
     "lint-staged": "npm:lint-staged@^15.4.3",
     "lodash-es": "npm:lodash-es@^4.17.21",
     "oxlint": "npm:oxlint@0.15.7",
-    "prettier": "npm:prettier@^3.4.2"
-  }
+    "prettier": "npm:prettier@^3.4.2",
+    "rspack-deno-plugin": "./src/index.ts"
+  },
+  "nodeModulesDir": "none"
 }
