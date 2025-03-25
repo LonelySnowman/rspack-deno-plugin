@@ -1,21 +1,8 @@
-import {
-  InfoOption,
-  InfoOutput,
-  NpmPackage,
-  ModuleEntry,
-  ModuleEntryEsm,
-  RootInfoOutput,
-  Specifiers,
-} from "./types.ts";
-import { ResolveData } from "@rspack/core";
-import { resolve } from "node:path";
-import { existsSync } from "node:fs";
-import {
-  parsePackageName,
-  getFileExtension,
-  fileExistsSync,
-  ensureDirSync,
-} from "./utils.ts";
+import { InfoOption, InfoOutput, NpmPackage, ModuleEntry, ModuleEntryEsm, RootInfoOutput, Specifiers } from './types.ts';
+import { ResolveData } from '@rspack/core';
+import { resolve } from 'node:path';
+import { existsSync } from 'node:fs';
+import { parsePackageName, getFileExtension, fileExistsSync, ensureDirSync } from './utils.ts';
 
 let tmpDir: string | undefined;
 
@@ -27,15 +14,15 @@ export class DenoCache {
   _modules: Map<string, ModuleEntry> = new Map();
   _localToSpecifier: Map<string, string> = new Map();
   _denoConfig?: any;
-  _pluginCache: string = "rspack-deno-plugin";
+  _pluginCache: string = 'rspack-deno-plugin';
 
   constructor(option?: InfoOption) {
     const cwd = Deno.cwd();
-    const config = resolve(cwd, "./deno.json");
+    const config = resolve(cwd, './deno.json');
     const defaultOption = {
       cwd,
       config,
-      lock: resolve(cwd, "./deno.lock"),
+      lock: resolve(cwd, './deno.lock'),
     };
     const exist = existsSync(config);
     if (!exist) {
@@ -49,7 +36,7 @@ export class DenoCache {
     const denoConfig = JSON.parse(denoJson);
     this._denoConfig = denoConfig;
     this._rootInfo = await this._getRootInfo();
-    if (denoConfig.nodeModulesDir !== "auto") {
+    if (denoConfig.nodeModulesDir !== 'auto') {
       throw new Error('nodeModulesDir in deno.json needs to be "auto"');
     }
   }
@@ -60,8 +47,7 @@ export class DenoCache {
     if (entry !== undefined) return entry;
     await this._load(specifier);
     entry = this._getCached(specifier);
-    if (entry === undefined)
-      throw new Error(`'${specifier}' loaded but not searched`);
+    if (entry === undefined) throw new Error(`'${specifier}' loaded but not searched`);
     return entry;
   }
 
@@ -70,14 +56,11 @@ export class DenoCache {
     const imports = this._denoConfig.imports || {};
     if (Object.keys(imports).includes(depName)) {
       const value = imports[depName];
-      if (!value.startsWith(Specifiers.NPM))
-        resolveData.request = imports[depName] + depPath;
+      if (!value.startsWith(Specifiers.NPM)) resolveData.request = imports[depName] + depPath;
     }
 
     if (resolveData.context.includes(this._rootInfo!.denoDir)) {
-      const specifier = this._localToSpecifier.get(
-        resolveData.contextInfo.issuer
-      );
+      const specifier = this._localToSpecifier.get(resolveData.contextInfo.issuer);
       if (specifier) {
         const mod = (await this.get(specifier)) as ModuleEntryEsm;
         for (const dep of mod.dependencies) {
@@ -94,20 +77,15 @@ export class DenoCache {
     const pkgModule = this._modules.get(specifier);
     if (pkgModule) {
       const ext = getFileExtension(specifier);
-      const needCopyExt = ["json", "css"];
+      const needCopyExt = ['json', 'css'];
       if (needCopyExt.includes(ext)) {
         const pkg = pkgModule as ModuleEntryEsm;
-        const subPath = pkg.local?.replaceAll(this._rootInfo!.denoDir, "");
-        const pluginInnerDir = `${this._rootInfo!.denoDir}/${
-          this._pluginCache
-        }${subPath}`;
+        const subPath = pkg.local?.replaceAll(this._rootInfo!.denoDir, '');
+        const pluginInnerDir = `${this._rootInfo!.denoDir}/${this._pluginCache}${subPath}`;
         const pluginInnerFile = pluginInnerDir + `.${ext}`;
         const flag = fileExistsSync(pluginInnerFile);
         if (!flag) {
-          const content = Deno.readTextFileSync(pkg!.local).replaceAll(
-            /\/\/ denoCacheMetadata=.*/g,
-            ""
-          );
+          const content = Deno.readTextFileSync(pkg!.local).replaceAll(/\/\/ denoCacheMetadata=.*/g, '');
           ensureDirSync(pluginInnerDir);
           Deno.writeTextFileSync(pluginInnerFile, content);
         }
@@ -121,11 +99,11 @@ export class DenoCache {
     // Gen deno info command option
     const option = this._option;
     const commandOption: Deno.CommandOptions = {
-      args: ["info", "--json", specifier],
+      args: ['info', '--json', specifier],
       cwd: undefined,
-      env: { DENO_NO_PACKAGE_JSON: "true" },
-      stdout: "piped",
-      stderr: "inherit",
+      env: { DENO_NO_PACKAGE_JSON: 'true' },
+      stdout: 'piped',
+      stderr: 'inherit',
     };
     if (option.cwd) {
       commandOption.cwd = option.cwd;
@@ -134,23 +112,17 @@ export class DenoCache {
     }
 
     // Command output to object
-    const output = await new Deno.Command(
-      Deno.execPath(),
-      commandOption
-    ).output();
+    const output = await new Deno.Command(Deno.execPath(), commandOption).output();
 
     const txt = new TextDecoder().decode(output.stdout);
     return JSON.parse(txt);
   }
 
   async _load(specifier: string) {
-    const { modules, redirects, npmPackages } = await this._getDenoInfo(
-      specifier
-    );
+    const { modules, redirects, npmPackages } = await this._getDenoInfo(specifier);
     for (const mod of modules) {
       // specifier to module
       this._modules.set(mod.specifier, mod);
-      // TODO: 代码不优雅待变更
       const tempModule = mod as ModuleEntryEsm;
       if (tempModule.local) {
         this._localToSpecifier.set(tempModule.local!, mod.specifier);
@@ -177,21 +149,17 @@ export class DenoCache {
     throw new Error(`Too many redirects for '${original}'`);
   }
 
-  // 考虑初始化的时候直接加载
   async _getRootInfo(): Promise<RootInfoOutput> {
     if (!tmpDir) tmpDir = Deno.makeTempDirSync();
     const opts = {
-      args: ["info", "--json", "--no-config", "--no-lock"],
+      args: ['info', '--json', '--no-config', '--no-lock'],
       cwd: tmpDir,
-      env: { DENO_NO_PACKAGE_JSON: "true" },
-      stdout: "piped",
-      stderr: "inherit",
+      env: { DENO_NO_PACKAGE_JSON: 'true' },
+      stdout: 'piped',
+      stderr: 'inherit',
     };
 
-    const output = await new Deno.Command(
-      Deno.execPath(),
-      opts as Deno.CommandOptions
-    ).output();
+    const output = await new Deno.Command(Deno.execPath(), opts as Deno.CommandOptions).output();
     if (!output.success) {
       throw new Error(`Failed to call 'deno info'`);
     }

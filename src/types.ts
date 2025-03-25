@@ -1,7 +1,7 @@
-import { Compilation, ResolveData } from "@rspack/core";
+import { Compilation, ResolveData } from '@rspack/core';
 
 export interface PluginOption {
-  mode: "native" | "portable";
+  mode: 'native' | 'portable';
 }
 
 export interface InfoOption {
@@ -11,11 +11,11 @@ export interface InfoOption {
 }
 
 export enum Specifiers {
-  NPM = "npm:", // native: 指向本地缓存 | portable: 指向 node_modules
-  JSR = "jsr:", // native: 转化为 https 再指向本地缓存 entry.local | portable: 远程加载 写入本地 temp 文件
-  NODE = "node:", // 本地进行提示请安装
-  HTTPS = "https:", // 同 jsr 转化后流程
-  HTTP = "http:",
+  NPM = 'npm:',
+  JSR = 'jsr:',
+  NODE = 'node:',
+  HTTPS = 'https:',
+  HTTP = 'http:',
 }
 
 export interface Loader {
@@ -48,12 +48,7 @@ export interface NpmPackage {
   registryUrl?: string;
 }
 
-export type ModuleEntry =
-  | ModuleEntryError
-  | ModuleEntryEsm
-  | ModuleEntryJson
-  | ModuleEntryNpm
-  | ModuleEntryNode;
+export type ModuleEntry = ModuleEntryError | ModuleEntryEsm | ModuleEntryJson | ModuleEntryNpm | ModuleEntryNode;
 
 export interface ModuleEntryBase {
   specifier: string;
@@ -64,25 +59,25 @@ export interface ModuleEntryError extends ModuleEntryBase {
 }
 
 export type MediaType =
-  | "JavaScript"
-  | "Mjs"
-  | "Cjs"
-  | "JSX"
-  | "TypeScript"
-  | "Mts"
-  | "Cts"
-  | "Dts"
-  | "Dmts"
-  | "Dcts"
-  | "TSX"
-  | "Json"
-  | "Wasm"
-  | "TsBuildInfo"
-  | "SourceMap"
-  | "Unknown";
+  | 'JavaScript'
+  | 'Mjs'
+  | 'Cjs'
+  | 'JSX'
+  | 'TypeScript'
+  | 'Mts'
+  | 'Cts'
+  | 'Dts'
+  | 'Dmts'
+  | 'Dcts'
+  | 'TSX'
+  | 'Json'
+  | 'Wasm'
+  | 'TsBuildInfo'
+  | 'SourceMap'
+  | 'Unknown';
 
 export interface ModuleEntryEsm extends ModuleEntryBase {
-  kind: "esm";
+  kind: 'esm';
   local: string | null;
   emit: string | null;
   map: string | null;
@@ -97,19 +92,19 @@ export interface ModuleEntryEsm extends ModuleEntryBase {
 }
 
 export interface ModuleEntryJson extends ModuleEntryBase {
-  kind: "asserted" | "json";
+  kind: 'asserted' | 'json';
   local: string | null;
   mediaType: MediaType;
   size: number;
 }
 
 export interface ModuleEntryNpm extends ModuleEntryBase {
-  kind: "npm";
+  kind: 'npm';
   npmPackage: string;
 }
 
 export interface ModuleEntryNode extends ModuleEntryBase {
-  kind: "node";
+  kind: 'node';
   moduleName: string;
 }
 
