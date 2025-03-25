@@ -74,7 +74,7 @@ export class DenoCache {
 
   _getCached(specifier: string): ModuleEntry | undefined {
     specifier = this._resolve(specifier);
-    const pkgModule = this._modules.get(specifier);
+    const pkgModule = this._modules.get(specifier) as ModuleEntryEsm;
     if (pkgModule) {
       const ext = getFileExtension(specifier);
       const needCopyExt = ['json', 'css'];
@@ -85,7 +85,7 @@ export class DenoCache {
         const pluginInnerFile = pluginInnerDir + `.${ext}`;
         const flag = fileExistsSync(pluginInnerFile);
         if (!flag) {
-          const content = Deno.readTextFileSync(pkg!.local).replaceAll(/\/\/ denoCacheMetadata=.*/g, '');
+          const content = Deno.readTextFileSync(pkg!.local as string).replaceAll(/\/\/ denoCacheMetadata=.*/g, '');
           ensureDirSync(pluginInnerDir);
           Deno.writeTextFileSync(pluginInnerFile, content);
         }
