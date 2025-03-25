@@ -9,6 +9,7 @@ Deno module resolution for rspack and rsbuild.
 ## How to use
 
 - You need to set `"nodeModulesDir": "auto"` in deno.json before start.
+- [npm](https://www.npmjs.com/package/rspack-deno-plugin) | [jsr](https://jsr.io/@snowman/rspack-deno-plugin)
 
 ### NPM Package
 
@@ -98,5 +99,4 @@ deno --allow-all ./rsbuild-script.ts
 
 ## Coming soon
 
-- [ ] Support resolve npm local deno cache.
-- [ ] Add test code and CI/CD.
+- [ ] Support { "nodeModulesDir": "none" } config in deno.json.
