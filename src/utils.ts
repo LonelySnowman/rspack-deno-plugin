@@ -60,36 +60,36 @@ export function ensureDirSync(dir: string) {
   }
 }
 
-// 检查当前目录是否在 workspace 子包中，并返回根目录路径
-export function findWorkspaceRoot(currentDir: string, workspacePaths: string[]): string {
-  // 如果 workspacePaths 为空，直接返回当前目录
+// 查找包含 workspace 配置的根目录
+export function findWorkspaceRoot(currentDir: string, rootDir: string, workspacePaths: string[]): string {
+  // 如果 workspacePaths 为空，说明不是 workspace 项目，返回当前目录
   if (!workspacePaths || workspacePaths.length === 0) {
     return currentDir;
   }
 
+  // 标准化路径，移除末尾的斜杠
+  const normalizedCurrentDir = currentDir.replace(/\/$/, '');
+  const normalizedRootDir = rootDir.replace(/\/$/, '');
+
+  // 如果当前目录就是根目录，直接返回
+  if (normalizedCurrentDir === normalizedRootDir) {
+    return rootDir;
+  }
+
   // 检查当前目录是否在某个 workspace 子包中
   for (const workspacePath of workspacePaths) {
-    const normalizedWorkspacePath = workspacePath.replace(/^\.\//, '');
-    const workspaceFullPath = `${currentDir}/${normalizedWorkspacePath}`;
+    // 构建子包的绝对路径
+    const normalizedWorkspacePath = workspacePath.replace(/^\.\//, '').replace(/\/$/, '');
+    const subPackageFullPath = `${normalizedRootDir}/${normalizedWorkspacePath}`;
     
-    // 检查当前目录是否在子包目录中
-    if (currentDir.startsWith(workspaceFullPath)) {
-      // 找到根目录（当前目录的父目录，直到找到包含 deno.json 的目录）
-      let rootDir = currentDir;
-      while (rootDir !== '/' && rootDir !== '') {
-        const parentDir = rootDir.substring(0, rootDir.lastIndexOf('/'));
-        if (parentDir === '') break;
-        
-        // 检查父目录是否包含 deno.json
-        if (fileExistsSync(`${parentDir}/deno.json`)) {
-          return parentDir;
-        }
-        rootDir = parentDir;
-      }
-      break;
+    // 检查当前目录是否是子包目录或其子目录
+    if (normalizedCurrentDir === subPackageFullPath || normalizedCurrentDir.startsWith(`${subPackageFullPath}/`)) {
+      // 当前目录在子包中，返回根目录
+      return rootDir;
     }
   }
 
+  // 当前目录不在任何子包中，返回当前目录
   return currentDir;
 }
 
@@ -106,4 +106,12 @@ export async function readJsonFile<T = unknown>(filePath: string): Promise<T> {
       throw error;
     }
   }
+}
+
+// 匹配 .ts 结尾文件的正则表达式
+export const TS_FILE_REGEX = /\.ts$/;
+
+// 检查文件是否为 TypeScript 文件
+export function isTypeScriptFile(filePath: string): boolean {
+  return TS_FILE_REGEX.test(filePath);
 }

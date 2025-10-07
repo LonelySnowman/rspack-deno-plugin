@@ -3,7 +3,7 @@ import RspackDenoPlugin from '../../../../src/index.ts';
 
 export default defineConfig({
   entry: {
-    main: './index.ts',
+    main: './mod.ts',
   },
   plugins: [new RspackDenoPlugin()],
 });
