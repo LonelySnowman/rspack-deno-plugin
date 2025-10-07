@@ -25,5 +25,8 @@
     "prettier": "npm:prettier@^3.4.2",
     "rspack-deno-plugin": "./src/index.ts"
   },
-  "nodeModulesDir": "none"
+  "nodeModulesDir": "none",
+  "compilerOptions": {
+    "lib": ["deno.ns", "deno.window", "dom"]
+  }
 }

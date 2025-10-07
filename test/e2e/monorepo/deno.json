@@ -1,0 +1,12 @@
+{
+  "tasks": {
+    "build": "rspack build"
+  },
+  "exports": "./index.ts",
+  "workspace": ["./utils"],
+  "nodeModulesDir": "auto",
+  "imports": {
+    "@rspack/cli": "npm:@rspack/cli@^1.5.8",
+    "@rspack/core": "npm:@rspack/core@^1.5.8"
+  }
+}

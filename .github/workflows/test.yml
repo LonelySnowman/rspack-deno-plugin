@@ -25,3 +25,7 @@ jobs:
       - name: NPM Specifier Test
         run: deno install && deno run build
         working-directory: ./test/e2e/npm
+
+      - name: Monorepo Test
+        run: deno install && deno run build
+        working-directory: ./test/e2e/monorepo

@@ -59,3 +59,51 @@ export function ensureDirSync(dir: string) {
     }
   }
 }
+
+// 检查当前目录是否在 workspace 子包中，并返回根目录路径
+export function findWorkspaceRoot(currentDir: string, workspacePaths: string[]): string {
+  // 如果 workspacePaths 为空，直接返回当前目录
+  if (!workspacePaths || workspacePaths.length === 0) {
+    return currentDir;
+  }
+
+  // 检查当前目录是否在某个 workspace 子包中
+  for (const workspacePath of workspacePaths) {
+    const normalizedWorkspacePath = workspacePath.replace(/^\.\//, '');
+    const workspaceFullPath = `${currentDir}/${normalizedWorkspacePath}`;
+    
+    // 检查当前目录是否在子包目录中
+    if (currentDir.startsWith(workspaceFullPath)) {
+      // 找到根目录（当前目录的父目录，直到找到包含 deno.json 的目录）
+      let rootDir = currentDir;
+      while (rootDir !== '/' && rootDir !== '') {
+        const parentDir = rootDir.substring(0, rootDir.lastIndexOf('/'));
+        if (parentDir === '') break;
+        
+        // 检查父目录是否包含 deno.json
+        if (fileExistsSync(`${parentDir}/deno.json`)) {
+          return parentDir;
+        }
+        rootDir = parentDir;
+      }
+      break;
+    }
+  }
+
+  return currentDir;
+}
+
+export async function readJsonFile<T = unknown>(filePath: string): Promise<T> {
+  try {
+    const content = await Deno.readTextFile(filePath);
+    return JSON.parse(content) as T;
+  } catch (error) {
+    if (error instanceof Deno.errors.NotFound) {
+      throw new Error(`File not found: ${filePath}`);
+    } else if (error instanceof SyntaxError) {
+      throw new Error(`Invalid JSON in file: ${filePath}`);
+    } else {
+      throw error;
+    }
+  }
+}

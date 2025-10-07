@@ -47,6 +47,18 @@ class RspackDenoPlugin implements RspackPluginInstance {
         },
         type: "javascript/auto",
       });
+      compiler.options.module.rules.push({
+        test: loader.context.rootDir,
+        loader: "builtin:swc-loader",
+        options: {
+          jsc: {
+            parser: {
+              syntax: "typescript",
+            },
+          },
+        },
+        type: "javascript/auto",
+      });
     }
   }
 
@@ -56,17 +68,6 @@ class RspackDenoPlugin implements RspackPluginInstance {
       this.initPlugin.bind(this)
     );
     compiler.hooks.watchRun.tapPromise(PLUGIN_NAME, this.initPlugin.bind(this));
-
-    // compiler.hooks.compilation.tap(
-    //   PLUGIN_NAME,
-    //   (_compilation: Compilation, { normalModuleFactory }) => {
-    //     normalModuleFactory.hooks.beforeResolve.tap(
-    //       PLUGIN_NAME,
-    //       this._Loader.beforeResolve.bind(this._Loader)
-    //     );
-    //   }
-    // );
-
     compiler.hooks.compilation.tap(
       PLUGIN_NAME,
       (compilation: Compilation, { normalModuleFactory }) => {

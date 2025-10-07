@@ -18,6 +18,12 @@ export enum Specifiers {
   HTTP = 'http:',
 }
 
+export interface LoaderContext {
+  rootDir: string;
+  denoJson: ConfigFile;
+  workspaceDenoJson: Map<string, ConfigFile>;
+}
+
 export interface Loader {
   beforeResolve: (resolveData: ResolveData, compilation: Compilation) => void;
   beforeRun?: () => Promise<void>;
@@ -26,6 +32,13 @@ export interface Loader {
 /**
  * Deno About Types
  */
+
+export interface ConfigFile {
+  name?: string;
+  exports?: string;
+  workspace?: string[];
+  [key: string]: unknown;
+}
 
 export interface InfoOutput {
   roots: string[];

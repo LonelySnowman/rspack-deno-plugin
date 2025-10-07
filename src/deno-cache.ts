@@ -36,9 +36,9 @@ export class DenoCache {
     const denoConfig = JSON.parse(denoJson);
     this._denoConfig = denoConfig;
     this._rootInfo = await this._getRootInfo();
-    if (denoConfig.nodeModulesDir !== 'auto') {
-      throw new Error('nodeModulesDir in deno.json needs to be "auto"');
-    }
+    // if (denoConfig.nodeModulesDir !== 'auto') {
+    //   throw new Error('nodeModulesDir in deno.json needs to be "auto"');
+    // }
   }
 
   // TODO: Use queue concurrent loading to improve performance
