@@ -48,7 +48,7 @@ class RspackDenoPlugin implements RspackPluginInstance {
         type: "javascript/auto",
       });
       compiler.options.module.rules.push({
-        test: loader.context.rootDir,
+        test: /\.ts$/,
         loader: "builtin:swc-loader",
         options: {
           jsc: {

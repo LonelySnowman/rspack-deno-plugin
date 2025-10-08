@@ -1,4 +1,4 @@
-import { InfoOption, InfoOutput, NpmPackage, ModuleEntry, ModuleEntryEsm, RootInfoOutput, Specifiers } from './types.ts';
+import { InfoOption, InfoOutput, NpmPackage, ModuleEntry, ModuleEntryEsm, RootInfoOutput, Specifiers, ConfigFile } from './types.ts';
 import { ResolveData } from '@rspack/core';
 import { resolve } from 'node:path';
 import { existsSync } from 'node:fs';
@@ -13,7 +13,7 @@ export class DenoCache {
   _npmPackages: Map<string, NpmPackage> = new Map();
   _modules: Map<string, ModuleEntry> = new Map();
   _localToSpecifier: Map<string, string> = new Map();
-  _denoConfig?: any;
+  _denoConfig?: ConfigFile;
   _pluginCache: string = 'rspack-deno-plugin';
 
   constructor(option?: InfoOption) {
@@ -31,14 +31,9 @@ export class DenoCache {
     this._option = option || defaultOption;
   }
 
-  async init() {
-    const denoJson = await Deno.readTextFile(this._option.config!);
-    const denoConfig = JSON.parse(denoJson);
-    this._denoConfig = denoConfig;
+  async init(denoJson: ConfigFile) {
+    this._denoConfig = denoJson;
     this._rootInfo = await this._getRootInfo();
-    // if (denoConfig.nodeModulesDir !== 'auto') {
-    //   throw new Error('nodeModulesDir in deno.json needs to be "auto"');
-    // }
   }
 
   // TODO: Use queue concurrent loading to improve performance
@@ -53,7 +48,7 @@ export class DenoCache {
 
   async resolveRequestToDenoSpecifier(resolveData: ResolveData) {
     const [depName, depPath] = parsePackageName(resolveData.request);
-    const imports = this._denoConfig.imports || {};
+    const imports = this._denoConfig?.imports || {};
     if (Object.keys(imports).includes(depName)) {
       const value = imports[depName];
       if (!value.startsWith(Specifiers.NPM)) resolveData.request = imports[depName] + depPath;

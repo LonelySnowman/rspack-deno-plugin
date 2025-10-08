@@ -21,7 +21,7 @@ export enum Specifiers {
 export interface LoaderContext {
   rootDir: string;
   denoJson: ConfigFile;
-  workspaceDenoJson: Map<string, ConfigFile>;
+  workspacePackages: Map<string, WorkspacePackageInfo>;
 }
 
 export interface Loader {
@@ -37,7 +37,16 @@ export interface ConfigFile {
   name?: string;
   exports?: string;
   workspace?: string[];
+  nodeModulesDir?: string | boolean;
+  imports?: Record<string, string>;
   [key: string]: unknown;
+}
+
+export interface WorkspacePackageInfo {
+  name: string;
+  path: string;
+  exportsPath: string;
+  denoJson: ConfigFile;
 }
 
 export interface InfoOutput {
