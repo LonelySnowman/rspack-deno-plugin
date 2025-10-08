@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "module": "lib/index.mjs",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.mjs",
@@ -16,7 +17,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsup-node"
+    "build": "tsup-node",
+    "prepare": "husky"
   },
   "keywords": [
     "rspack",
@@ -32,8 +34,11 @@
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.2.5",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "lint-staged": "^16.2.3",
     "tsup": "^8.3.6",
-    "typescript": "^5.7.3",
-    "@biomejs/biome": "^2.2.5"
+    "typescript": "^5.7.3"
   }
 }

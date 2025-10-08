@@ -1,3 +1,3 @@
 {
-  "**/*.{js,mjs,cjs,ts,md}": ["deno @biomejs/biome check --write"]
+  "**/*.{js,mjs,cjs,ts,md}": ["npx @biomejs/biome check --write"]
 }

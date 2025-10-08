@@ -1,1 +1,1 @@
-deno run lint-staged
+npx lint-staged

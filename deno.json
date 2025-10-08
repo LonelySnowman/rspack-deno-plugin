@@ -17,14 +17,11 @@
   },
   "tasks": {
     "commitlint": "commitlint --edit $1",
-    "lint-staged": "lint-staged",
+    "lint-staged": "deno lint-staged --allow-all",
     "version": "deno run --allow-read --allow-write --allow-run scripts/version.ts"
   },
   "imports": {
-    "@commitlint/config-conventional": "npm:@commitlint/config-conventional@^19.7.1",
     "@rspack/core": "npm:@rspack/core@^1.2.2",
-    "husky": "npm:husky@^9.1.7",
-    "lint-staged": "npm:lint-staged@^15.4.3",
     "lodash-es": "npm:lodash-es@^4.17.21",
     "rspack-deno-plugin": "./src/index.ts"
   },
