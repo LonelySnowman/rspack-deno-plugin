@@ -1,10 +1,19 @@
 {
   "name": "@snowman/rspack-deno-plugin",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "exports": "./src/index.ts",
   "publish": {
-    "exclude": [".husky", ".eslintignore", ".lintstagedrc", ".prettierignore", ".prettierrc.json", "commitlint.config.js", "oxlintrc.json", "tsconfig.json"]
+    "exclude": [
+      ".husky",
+      ".eslintignore",
+      ".lintstagedrc",
+      ".prettierignore",
+      ".prettierrc.json",
+      "commitlint.config.js",
+      "oxlintrc.json",
+      "tsconfig.json"
+    ]
   },
   "tasks": {
     "lint:check": "oxlint -c oxlintrc.json --tsconfig tsconfig.json && prettier . --check",
@@ -28,6 +37,10 @@
   },
   "nodeModulesDir": "none",
   "compilerOptions": {
-    "lib": ["deno.ns", "deno.window", "dom"]
+    "lib": [
+      "deno.ns",
+      "deno.window",
+      "dom"
+    ]
   }
 }
