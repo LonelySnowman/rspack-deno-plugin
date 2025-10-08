@@ -13,7 +13,8 @@
     "commitlint": "commitlint --edit $1",
     "lint-staged": "lint-staged",
     "lint-staged:oxlint": "oxlint --fix",
-    "lint-staged:prettier": "prettier --write"
+    "lint-staged:prettier": "prettier --write",
+    "version": "deno run --allow-read --allow-write --allow-run scripts/version.ts"
   },
   "imports": {
     "@commitlint/config-conventional": "npm:@commitlint/config-conventional@^19.7.1",
