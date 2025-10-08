@@ -1,4 +1,3 @@
 {
-  "**/*.{js,mjs,cjs,ts}": ["deno run lint-staged:oxlint", "deno run lint-staged:prettier"],
-  "**/*.{json,md}": ["deno run lint-staged:prettier"]
+  "**/*.{js,mjs,cjs,ts,md}": ["deno @biomejs/biome check --write"]
 }
