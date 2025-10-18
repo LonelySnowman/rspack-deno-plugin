@@ -58,7 +58,7 @@ export class NativeLoader implements Loader {
 				const denoJson = await readJsonFile<ConfigFile>(denoJsonPath);
 
 				if (denoJson.workspace && Array.isArray(denoJson.workspace)) {
-					// 设置 workspace 根目录
+					// set workspace root directory
 					this.context.workspaceWorkingDir = currentDir;
 					return denoJson;
 				}
