@@ -3,7 +3,7 @@
     "build": "rspack build"
   },
   "exports": "./index.ts",
-  "workspace": ["./utils"],
+  "workspace": ["./libs", "./utils"],
   "nodeModulesDir": "auto",
   "imports": {
     "@rspack/cli": "npm:@rspack/cli@^1.5.8",

@@ -1,0 +1,10 @@
+{
+    "name": "@test/libs",
+    "tasks": {
+        "build": "rspack build"
+    },
+    "exports": "./mod.ts",
+    "imports": {
+        "lodash-es": "npm:lodash-es@^4.17.21"
+    }
+}
