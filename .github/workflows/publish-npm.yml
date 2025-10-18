@@ -28,6 +28,16 @@ jobs:
       - name: Build Lib
         run: pnpm run build
 
+      - name: Create and push version tag
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          TAG="v$VERSION"
+          echo "Creating tag $TAG"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag $TAG
+          git push origin $TAG
+
       - name: Publish Package
         run: npm publish
         env:

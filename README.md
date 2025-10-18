@@ -3,6 +3,7 @@
 Deno module resolution for rspack and rsbuild.
 
 - Support for `http:`, `https:`, `jsr:`, and `npm:` specifiers.
+- Support deno workspace running.
 
 > This project learns [esbuild_deno_loader](https://github.com/lucacasonato/esbuild_deno_loader)
 

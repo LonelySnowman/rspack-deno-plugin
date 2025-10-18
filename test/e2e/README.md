@@ -3,7 +3,7 @@
 - before run
 
 ```bash
-deno install npm:esbuild npm:esbuild-register
+deno install
 ```
 
 - run rspack build
